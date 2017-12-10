@@ -24,10 +24,10 @@
             $('body').html(new HomeView().render().$el);
         });
 
-        // router.addRoute('nameRoute/:name-view',function (){
-        //     $('body').html(new SearchByNameView(service).render().$el);
+        router.addRoute('downloadRoute/:download-view',function (){
+            $('body').html(new DownloadView(service).render().$el);
 
-        // });
+        });
         
         // router.addRoute('DTRoute/:dep-title-view',function (){
         //     $('body').html(new SearchByDepartmentTitleView(service).render().$el);

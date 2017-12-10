@@ -4,8 +4,7 @@ var DownloadView = function (service) {
 		// Define a div wrapper for the view (used to attach events)
 
 		this.$el = $('<div/>');	
-		this.$el.on(' keyup', '.department-name', findByDepTitle);
-		this.$el.on(' keyup', '.employee-title', findByDepTitle);
+		this.$el.on('click', '.download-image', downloadImage);
 	};
 	this.initialize();
 	this.render = function() {
@@ -14,18 +13,13 @@ var DownloadView = function (service) {
 		return this;
 	};
 
-	// function findByDepTitle() {
-	// 	service.findByDepTitle($.trim($('.department-name').val()),$.trim($('.employee-title').val()))
-	// 	.done(function(employees) {
-	// 		empty_array = [];
-	// 		if ($.trim($('.department-name').val()).length > 0 || $.trim($('.employee-title').val()).length > 0){
-	// 			employeeListView.setEmployees(employees);
-	// 		}
-	// 		else{
-	// 			// employeeListView.setEmployees(employees);
-	// 			employeeListView.setEmployees(empty_array);
-	// 		}
+	function downloadImage() {
+		service.downloadImage($.trim($('.image-url').val()),$.trim($('.image-tag').val())){
 			
-	// 	});
-	// };
+
+		}
+		
+			
+	
+	};
 } // HomeView.js in the js directory

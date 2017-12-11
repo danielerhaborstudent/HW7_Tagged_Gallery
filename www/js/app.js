@@ -9,11 +9,9 @@
 
     DownloadView.prototype.template = Handlebars.compile($("#download-tpl").html());
 
-    // SearchByDepartmentTitleView.prototype.template = Handlebars.compile($("#search-depName-title-tpl").html());
+    SearchView.prototype.template = Handlebars.compile($("#search-tpl").html());
 
-    // EmployeeListView.prototype.template = Handlebars.compile($("#employee-list-tpl").html());
-
-    // EmployeeView.prototype.template = Handlebars.compile($("#employee-tpl").html());
+    ImageListView.prototype.template = Handlebars.compile($("#image-list-tpl").html())
 
     // EmployeePhoneNumbers.prototype.template = Handlebars.compile($("#employee-phone-tpl").html());
 
@@ -29,10 +27,10 @@
 
         });
         
-        // router.addRoute('DTRoute/:dep-title-view',function (){
-        //     $('body').html(new SearchByDepartmentTitleView(service).render().$el);
+        router.addRoute('searchRoute/:search-view',function (){
+            $('body').html(new SearchView(service).render().$el);
 
-        // });
+        });
 
         // router.addRoute('employees/:id', function(id) {
         //     service.findById(parseInt(id)).done(function(employee) {

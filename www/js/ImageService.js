@@ -45,7 +45,7 @@ var ImageService = function() {
                 }
 
                 fname_URL.push( {fileName: entry.toURL()} );      // append a dictionary of the fileName : entry.toURL to our array fname_URL usefule for src with img;
-                
+
 
 
             },
@@ -63,6 +63,18 @@ var ImageService = function() {
             }
         );
 
+
+
+        deferred.resolve();
+        return deferred.promise();
+
+
+    }
+
+    this.findByTag = function(tag){
+        var deferred = $.Deferred();
+
+        
 
 
         deferred.resolve();

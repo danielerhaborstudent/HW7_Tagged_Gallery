@@ -28,22 +28,64 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+        <title>Final App</title>
     </head>
     <body>
-        <div class="app">
+        <!-- <div class="app">
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
-        </div>
+        </div> -->
+
+
+        <!-- Home view; Has a search button and download button taking me to their respective views -->
+        <script id="home-tpl" type="text/template">
+            <header class="home-view">
+                <h1 class="title">Home View</h1>
+            </header>
+                   
+            <button class = "download-view"><a href="#downloadRoute/download-view">Download</a></button>
+            <button class = "search-view"><a href="#searchRoute/search-view">Search</a></button>                
+        </script>
+
+
+        <script id="download-tpl" type="text/template">
+            <header class= "download-header">
+                <a href = "#"><button class = 'back-button'>Back to Home</button></a>
+                <h1 class="title">Download View</h1>
+            </header>
+                
+            <input class='image-url' type="text" placeholder="Image URL"/>
+            <input class='image-tag' type="text" placeholder="Image Tag"/>
+
+            <button class = "download-image">Download Image</button>  
+
+
+          <!-- <div  class="content"></div> -->
+        </script>
+
+
+
+
+
+
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script src="HomeView.js"></script>
+        <script src="DownloadView.js"></script>
+
+
+        <script src="lib/handlebars.js"></script>
+        <script src="lib/jquery.js"></script>
+        <script src="lib/router.js"></script>
+        <script src="ImageService.js"></script>
+
+        <script type="text/javascript" src="js/app.js"></script>
     </body>
 </html>

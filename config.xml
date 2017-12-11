@@ -25,4 +25,5 @@
     </platform>
     <engine name="browser" spec="~5.0.1" />
     <engine name="android" spec="~6.3.0" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
 </widget>

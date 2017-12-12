@@ -202,6 +202,36 @@ module.exports = [
         "clobbers": [
             "window.FileTransfer"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "pluginId": "cordova-plugin-device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/src/browser/DeviceProxy.js",
+        "id": "cordova-plugin-device.DeviceProxy",
+        "pluginId": "cordova-plugin-device",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/browser/notification.js",
+        "id": "cordova-plugin-dialogs.notification_browser",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -209,7 +239,10 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.3.3",
     "cordova-plugin-file": "5.0.0",
-    "cordova-plugin-file-transfer": "1.7.0"
+    "cordova-plugin-file-transfer": "1.7.0",
+    "cordova-plugin-device": "1.1.7",
+    "cordova-plugin-console": "1.1.0",
+    "cordova-plugin-dialogs": "1.3.4"
 }
 // BOTTOM OF METADATA
 });

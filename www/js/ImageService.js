@@ -1,6 +1,7 @@
 var ImageService = function() {
-    
+
     var storage = window.localStorage; // initalize local storage object
+    storage.clear();
     var fname_URL = []; // initialize URL for array of {"fileName": entry.toURL()} dictionary
     this.initialize = function() {
         // No Initialization required
@@ -118,6 +119,21 @@ var ImageService = function() {
         deferred.resolve(results);
         return deferred.promise();
 
+
+    }
+
+    this.findByFileName = function(name){
+        var deferred = $.Deferred();
+        var image = null;
+
+        for (var i = 0; i < fname_URL.length; i++){
+            if (name === fname_URL[i].file_name){
+                image = fname_URL[i]                // Find the dictionary with teh file_name that matches the name that you are looking for
+            }
+        }
+
+        deferred.resolve(image);
+        return deferred.promise();
 
     }
 }

@@ -11,7 +11,9 @@
 
     SearchView.prototype.template = Handlebars.compile($("#search-tpl").html());
 
-    ImageListView.prototype.template = Handlebars.compile($("#image-list-tpl").html())
+    ImageListView.prototype.template = Handlebars.compile($("#image-list-tpl").html());
+
+    ImageView.prototype.template = Handlebars.compile($("#image-tpl").html());
 
     // EmployeePhoneNumbers.prototype.template = Handlebars.compile($("#employee-phone-tpl").html());
 
@@ -32,11 +34,11 @@
 
         });
 
-        // router.addRoute('employees/:id', function(id) {
-        //     service.findById(parseInt(id)).done(function(employee) {
-        //         $('body').html(new EmployeeView(employee).render().$el);
-        //     });
-        // });
+        router.addRoute('images/:file_name', function(file_name) {
+            service.findByFileName(file_name).done(function(image) {
+                $('body').html(new ImageView(image).render().$el);
+            });
+        });
         router.start();
 
         console.log("Service initialized");

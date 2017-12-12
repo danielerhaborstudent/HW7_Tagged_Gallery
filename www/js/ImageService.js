@@ -31,6 +31,8 @@ var ImageService = function() {
                                                                                  // Splits on single space,
                                                                                  //  removes empty strings in array after split
 
+        my_tags_array = Array.from(new Set(my_tags_array));     // Remove any duplicate tags such as ["tag1", "tag2", "tag3","tag1", "tag2", "tag3"]
+                                                                // Just becomes ["tag1", "tag2", "tag3"]
         
         var fileURL = cordova.file.cacheDirectory + fileName;     // Here fileURL is where we will save the file "/data/data/com.daniel.workshop/cache/bitcoin1.jpg"
         fileTransfer.download(
@@ -38,16 +40,31 @@ var ImageService = function() {
             fileURL,        // target; where the file will be stored
             function(entry) {
                 alert("Download Successful!");          // Do this when the download is successful
-                console.log("download complete: " + entry.toURL());     // entry.toURL() helps us get a URL for the image that we can use with href or src
+                console.log("download complete: " + entry + " " + entry.toURL());     // entry.toURL() helps us get a URL for the image that we can use with href or src
 
 
                 for (var i = 0; i < my_tags_array.length; i++){
-                     storage.setItem(my_tags_array[i], fileName);     // store in localStorage tuples of (tag, fileName) 
+                    if (!(my_tags_array[i] in storage)){                    // If the tag is not already in local storage then add it
+                        storage.setItem(my_tags_array[i], fileName);     // store in localStorage tuples of ("tag", fileName) 
                                                                       // Multiple tags can have the same fileName
+                    }
+                    else{
+                        var item = storage.getItem(my_tags_array[i]);       // Same tag can have multiple fileNames associated with it
+                        if (item !== fileName){
+                            storage.setItem(my_tags_array[i], item + ";" + fileName)    // ('tag1', "fileName1;fileName2;fileName3")
+                        }
+
+                    }
+
                 }
+                
+
+
+
+                // need to 
 
                 fname_URL.push( {"file_name": fileName,  "url" : entry.toURL()} );      // append a dictionary of the fileName and entry.toURL 
-                                                                                        //to our array fname_URL usefule for src with img;
+                                                                                        //to our array fname_URL useful for src with img;
 
 
 
@@ -79,9 +96,14 @@ var ImageService = function() {
         var deferred = $.Deferred();
         var storage_array = [];
         for (var key in storage){
-          storage_array.push({"key":key, "value": storage.getItem(key)}); // Turn storage into an array of dictionaries of the form
-                                                                          // [{key: 'tag1', value : fileName1}]
-          
+          var storage_values_split = storage.getItem(key).split(";");   // get my array of ['fileName1','fileName2','fileName3']
+
+          for (var i = 0; i < storage_values_split.length; i++){
+
+            storage_array.push({"key":key, "value": storage_values_split[i]}); // Turn storage into an array of dictionaries of the form
+                                                                            // [{key: 'tag1', value : fileName1}]
+          }
+
         }
 
 

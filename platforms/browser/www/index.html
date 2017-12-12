@@ -29,6 +29,7 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+        <script src="cordova.js"></script>
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -63,7 +64,7 @@
             </header>
                 
             <input class='image-url' type="text" placeholder="Image URL"/>
-            <input class='image-tag' type="text" placeholder="Image Tag"/>
+            <input class='image-tag' type="text" placeholder="Image Tag(s)"/>
 
             <button class = "download-image">Download Image</button>  
 
@@ -71,21 +72,48 @@
           <!-- <div  class="content"></div> -->
         </script>
 
+        <script id="search-tpl" type="text/template">
+            <header class= "search-header">
+                <a href = "#"><button class = 'back-button'>Back to Home</button></a>
+                <h1 class="title">Search View</h1>
+            </header>
+                
+            <input class='image-tag' type="search" placeholder="Search a tag"/>
+
+            <div class="content"></div>
+
+
+        </script>
+
+        <script id="image-list-tpl" type="text/template">
+            <ul class="table-view">
+            {{#each this}}
+            <li class="table-view-cell media">
+                <a href="#images/{{ url }}">
+                    <div class="media-body">
+                        <p><b>File Name: </b>{{file_name}}, <b>Link: </b>{{url}}</p>
+                    </div>
+                </a>
+            </li>
+            {{/each}}
+            </ul>
+
+        </script>
 
 
 
 
-
-        <script type="text/javascript" src="cordova.js"></script>
-        <script src="HomeView.js"></script>
-        <script src="DownloadView.js"></script>
-
+        <!-- <script src="cordova.js"></script> -->
+        <script src="js/HomeView.js"></script>
+        <script src="js/DownloadView.js"></script>
+        <script src="js/SearchView.js"></script>
+        <script src="js/ImageListView.js"></script>
 
         <script src="lib/handlebars.js"></script>
         <script src="lib/jquery.js"></script>
         <script src="lib/router.js"></script>
-        <script src="ImageService.js"></script>
+        <script src="js/ImageService.js"></script>
 
-        <script type="text/javascript" src="js/app.js"></script>
+        <script src="js/app.js"></script>
     </body>
 </html>

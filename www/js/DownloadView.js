@@ -14,10 +14,10 @@ var DownloadView = function (service) {
 	};
 
 	function downloadImage() {
-		service.downloadImage($.trim($('.image-url').val()),$.trim($('.image-tag').val())){
+		service.downloadImage($.trim($('.image-url').val()),$.trim($('.image-tag').val()));
 			
 
-		}
+		
 		
 			
 	

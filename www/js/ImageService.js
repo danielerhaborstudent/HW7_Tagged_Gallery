@@ -1,8 +1,8 @@
 var ImageService = function() {
 
     var storage = window.localStorage; // initalize local storage object
-    storage.clear();
-    var fname_URL = []; // initialize URL for array of {"fileName": entry.toURL()} dictionary
+    // storage.clear();
+    // var fname_URL = []; // initialize URL for array of {"fileName": entry.toURL()} dictionary
     this.initialize = function() {
         // No Initialization required
         var deferred = $.Deferred();
@@ -40,7 +40,7 @@ var ImageService = function() {
             fileURL,        // target; where the file will be stored
             function(entry) {
                 alert("Download Successful!");          // Do this when the download is successful
-                console.log("download complete: " + entry + " " + entry.toURL());     // entry.toURL() helps us get a URL for the image that we can use with href or src
+                console.log("download complete: " + entry.toURL());     // entry.toURL() helps us get a URL for the image that we can use with href or src
 
 
                 for (var i = 0; i < my_tags_array.length; i++){
@@ -63,7 +63,7 @@ var ImageService = function() {
 
                 // need to 
 
-                fname_URL.push( {"file_name": fileName,  "url" : entry.toURL()} );      // append a dictionary of the fileName and entry.toURL 
+                // fname_URL.push( {"file_name": fileName,  "url" : entry.toURL()} );      // append a dictionary of the fileName and entry.toURL 
                                                                                         //to our array fname_URL useful for src with img;
 
 
@@ -114,26 +114,37 @@ var ImageService = function() {
           return tag.toLowerCase().indexOf(searchTag.toLowerCase()) > -1;
         });
 
-        var results = [];
+        // var results = [];
 
-        for (var i = 0; i < tag_filtered.length; i++){
+        // for (var i = 0; i < tag_filtered.length; i++){
 
-            var name = tag_filtered[i].value;           // file name
+        //     var name = tag_filtered[i].value;           // file name
 
 
-            var temp_array = fname_URL.filter(function(element){
+        //     var temp_array = fname_URL.filter(function(element){
 
-                return name === element.file_name;            // array of single dictionary element where the fileName from a tag_filtered elemet matches the 
-                                                                // fileName of fname_URL array of dictionary elements
+        //         return name === element.file_name;            // array of single dictionary element where the fileName from a tag_filtered elemet matches the 
+        //                                                         // fileName of fname_URL array of dictionary elements
 
-            });
+        //     });
 
-            if (results.indexOf(temp_array[0]) <= -1) {
-                results.push(temp_array[0]);                    // if the dictionary in temp_array is not in results append it
+        //     if (results.indexOf(temp_array[0]) <= -1) {
+        //         results.push(temp_array[0]);                    // if the dictionary in temp_array is not in results append it
+        //     }
+
+
+        // }
+        unique_names = [];
+        for (var i = 0; i < tag_filtered.length; i++){          // get array of unique file_names from tag_filtered
+            if (!(tag_filtered[i].value in unique_names)){      // [fileName1, fileName2]
+                unique_names.push(tag_filtered[i].value);
             }
-
-
         }
+
+       var results = [];
+       for (var i = 0; i < unique_names.length; i++){
+            results.push({"file_name" : unique_names[i]});      // append {"file_name": fileName} 
+       }
 
         
 
@@ -144,17 +155,50 @@ var ImageService = function() {
 
     }
 
-    this.findByFileName = function(name){
-        var deferred = $.Deferred();
+    this.findByFileName = function(file_name){
+        var deferred = $.Deferred();                    // will have to use localStorage instead
+        // var image = null;
         var image = null;
 
-        for (var i = 0; i < fname_URL.length; i++){
-            if (name === fname_URL[i].file_name){
-                image = fname_URL[i]                // Find the dictionary with teh file_name that matches the name that you are looking for
+        // for (var i = 0; i < fname_URL.length; i++){
+        //     if (name === fname_URL[i].file_name){
+        //         image = fname_URL[i];                // Find the dictionary with teh file_name that matches the name that you are looking for
+        //     }
+        // }
+
+
+        readFile(file_name);
+
+        function readFile(name) {
+            var type = window.TEMPORARY;
+            var size = 5*1024*1024;
+            window.requestFileSystem(type, size, successCallback, errorCallback);
+            var outsideSuccess = null;
+            function successCallback(fs) {
+                // var insideSuccess = null;
+                fs.root.getFile(name, {}, myFileEntryFunction, errorCallback);
+                // console.log("Inside success: ", insideSuccess);
+
             }
+            // var image = image
+            //console.log("After successCallback: ", outsideSuccess);
+            function myFileEntryFunction(fileEntry) {
+
+                console.log(fileEntry.toURL());
+                image = {"file_name":name, "url" : fileEntry.toURL()};
+            //     console.log("Inside fileEntry: ", insideSuccess);
+                        console.log(image);
+                        deferred.resolve(image);
+                        // return deferred.promise();
+            }
+            function errorCallback(error) {alert("Reading failed"); console.log("Reading failed: " + error.code); }
+        
         }
 
-        deferred.resolve(image);
+        
+        // console.log(image);
+        // deferred.resolve(image);
+        // return deferred.promise();
         return deferred.promise();
 
     }

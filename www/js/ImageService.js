@@ -15,9 +15,6 @@ var ImageService = function() {
 
         var deferred = $.Deferred();
 
-        // function checkURL(url) { 
-        //     return(url.match(/\.(jpeg|jpg|gif|png)$/) != null); 
-        // }
 
         var fileTransfer = new FileTransfer();      // Create new FileTransfer object
         var uri = encodeURI(imageURL);              // extract the Uniform Resource Identifier

@@ -131,12 +131,14 @@ var ImageService = function() {
 
 
         // }
-        unique_names = [];
+        var unique_names = [];
         for (var i = 0; i < tag_filtered.length; i++){          // get array of unique file_names from tag_filtered
             if (!(tag_filtered[i].value in unique_names)){      // [fileName1, fileName2]
                 unique_names.push(tag_filtered[i].value);
             }
         }
+
+        unique_names = Array.from(new Set(unique_names)); 
 
        var results = [];
        for (var i = 0; i < unique_names.length; i++){
